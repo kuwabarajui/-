@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.productions h1{
+  margin-bottom: 200px;
+  padding: 30px 0;
+  font-size: 1.2rem;
+}
+.product_contents{
+  overflow: hidden;
+  width: 840px;
+  margin: auto;
+  padding: 0;
+  list-style: none;;
+}
+.product_contents li{
+  float: left;
+  margin: 0 30px 0 0;
+  border: 3px solid #dadada;
+  width: 250px;
+  border-radius: 10px;
+}
+.product_contents li:last-child{
+  margin: 0 0 0 0;
+}
+.product_link{
+  text-align: center;
+}
+.thumbnail{
+  display: block;
+  margin: auto;
+}
+img{
+  width: 192px;
+  height: 108px;
+}

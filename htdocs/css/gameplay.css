@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.player_screen{
+  overflow: hidden;
+  width: 100%;
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.player_screen li{
+  box-sizing: border-box;
+  float: left;
+  margin: auto;
+  border: 3px solid #dadada;
+  width: 50%;
+  border-radius: 10px;
+}
+
+.player_screen li:last-child{
+  margin: 0 0 0 0;
+}
+
+img{
+  width: 192px;
+  height: 108px;
+}

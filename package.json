@@ -1,0 +1,23 @@
+{
+  "name": "star",
+  "version": "1.0.0",
+  "description": "ほしあつめプロジェクトだよ！",
+  "main": "index.js",
+  "scripts": {
+    "test": "tester"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuwabarajui/-.git"
+  },
+  "author": "jk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuwabarajui/-/issues"
+  },
+  "homepage": "https://github.com/kuwabarajui/-#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  }
+}

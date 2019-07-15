@@ -15,7 +15,7 @@ const io   = require("socket.io")(http);
 // Webサーバ
 //--------------------------------------
 app.get("/", (req, res)=>{
-  res.sendFile(__dirname + "/charmove_3.html");
+  res.sendFile(__dirname + "/gameplay.html");
 });
 app.get("/image/:file", (req, res)=>{
   res.sendFile(__dirname + "/image/" + req.params.file);

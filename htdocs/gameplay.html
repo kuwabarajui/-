@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="ページ概要"＞
-  <link rel="stylesheet" href="css/style.css">
+  <!-- <meta charset="UTF-8"> -->
   <link rel="stylesheet" href="css/gameplay.css">
 
   <title>ゲームプレイ</title>
@@ -40,7 +38,7 @@
 
   <div id="chararea"></div>
 
-  <script src="../socket.io/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script>
   window.onload = () => {
     const socket = io();
@@ -66,8 +64,8 @@
       }
 
       // 表示内容の切り替え
-      document.querySelector("#charselect").style.display = "none";   // キャラ選択部分を非表示
-      document.querySelector("#chararea").style.display   = "block";  // キャラ移動部分を表示
+      // document.querySelector("#charselect").style.display = "none";   // キャラ選択部分を非表示
+      // document.querySelector("#chararea").style.display   = "block";  // キャラ移動部分を表示
 
       //----------------------------------
       // Socket.io イベント処理

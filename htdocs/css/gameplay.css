@@ -1,4 +1,39 @@
-@charset "UTF-8";
+@charset "UTF-8"
+
+nav{
+  border-top: 8px solid #34589e;
+  background: #2a6fb7;
+}
+nav ul{
+  overflow: hidden;
+  list-style: none;
+  width: 100%;
+  margin: auto;
+  padding: 0;
+  /* max-width: 1000px; */
+}
+nav li{
+  box-sizing: border-box;
+  float: left;
+  border-right: 1px solid #34589e;
+  width: 50%;
+}
+nav li:first-child{
+  border-left: 1px solid #34589e;
+}
+nav li a{
+  display: block;
+  padding: 20px 0;
+  width: 100%;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #34589e;
+}
+nav li a:hover{
+  background: #34589e;
+  color: #ffffff
+}
 
 .player_screen{
   overflow: hidden;
@@ -14,6 +49,7 @@
   margin: auto;
   border: 3px solid #dadada;
   width: 50%;
+  height: 600px;
   border-radius: 10px;
 }
 

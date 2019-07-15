@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kuwabarajui/-#readme",
   "dependencies": {
+    "expres": "0.0.5",
     "express": "^4.17.1",
     "socket.io": "^2.2.0"
   }

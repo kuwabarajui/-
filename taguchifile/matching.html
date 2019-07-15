@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>マッチング</title>
+</head>
+<body>
+
+<h1>マッチング</h1>
+
+<form id="form-join">
+  <input type="text" name="uname" id="uname" placeholder="ユーザー名">
+  <button type="button" id="btn-join">参加</button>
+</form>
+
+<div id="nowloading" style="display:none">
+  Now Loading...
+</div>
+
+<script src="/htdocs/util.js"></script>
+<script>
+
+document.querySelector("#btn-join").addEventListener("click", ()=>{
+  const uname = document.querySelector("#uname");
+
+  //----------------------------------
+  // Validation
+  //----------------------------------
+  if(uname.value === ""){
+    alert("ユーザー名を入れてください");
+    uname.style.backgroundColor = "lightpink";
+    uname.focus();                                
+    return(false);
+  }
+
+  //----------------------------------
+ 
+  //----------------------------------
+  document.querySelector("#form-join").style.display = "none";  
+  document.querySelector("#nowloading").style.display = "block";
+
+  //----------------------------------
+  // 
+  //----------------------------------
+  requestAPI(`/htdocs/join.php?uname=${encodeURI(uname.value)}`, (json)=>{
+    localStorage.setItem("uid", json["uid"]);
+    setInterval(()=>{
+      requestAPI("/htdocs/isready.php", (json)=>{
+        if(json["ready"]){
+       　  location.href = 'sample.html';
+        }
+      });
+    }, 3000);
+  });
+});
+</script>
+</body>
+</html>

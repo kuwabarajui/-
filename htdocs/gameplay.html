@@ -5,6 +5,78 @@
   <link rel="stylesheet" href="css/gameplay.css">
 
   <title>ゲームプレイ</title>
+
+  <script type="text/javascript">
+  var ElapseTime = 0;   //経過時間(秒)
+  var GetCount = 0;    //キーを押した回数
+  var StartChecker = 0;
+
+  //繰り返し処理の中身
+  function gameUpdate() {
+    var msg =  ElapseTime + "秒経過";
+    document.getElementById("PassageArea").innerHTML = msg;
+    //試しに5秒でリセット
+    if (ElapseTime == 30) {
+      StartChecker++;
+      gameStop();
+    }
+    ElapseTime++;   //カウントアップ
+  }
+  //繰り返し処理の開始
+  function gameStart() {
+    ElapseTime = 1;   //カウンタのリセット
+    PassageID = setInterval('gameUpdate()',1000);   //タイマーをセット(1000ms間隔)
+    document.getElementById("startcount").disabled = true;   //開始ボタンの無効化
+  }
+  //繰り返し処理の中止
+  function gameStop() {
+    clearInterval( PassageID );   //タイマーのクリア
+    document.getElementById("endcount").disabled = false;   //開始ボタンの有効化
+
+    createCookie();
+  }
+
+  document.addEventListener('keyup', (event) => {
+    const keyName = event.key;
+
+    target = document.getElementById("messageSpace");
+    // if (document.getElementById("startcount").disabled == false) {
+    //   	target.innerHTML = "スタートボタンを押してね＞_＜";
+    //   	return;
+    // }
+    if (keyName == ' ' && StartChecker == 0) {
+      StartChecker++;
+      gameStart();
+    }
+    else if (keyName == ' ' && StartChecker == 1) {
+      target.innerHTML = "Spaceキーが押されたよ";
+      GetCount++;
+      var msg = GetCount + "回押されたよ";
+      document.getElementById("GetCount").innerHTML = msg;
+    }
+    else {
+      arget.innerHTML = "押すキーを間違ってるよ＞_＜";
+    }
+  }, false);
+
+  //クッキーを保存する
+  function createCookie(){
+    //cookieの保持期限を設定
+    //nullの場合には、セッション終了まで有効。
+    var days = null;
+    if(days){
+      var date = new Date();
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      var expires = "; expires=" +date.toGMTString();
+    }else{
+      var expires = GetCount;
+    };
+    //cookieを書きこむ
+    document.cookie = "hensu"+"="+expires+"; path=/";
+  };
+
+</script>
+
 </head>
 
 <body>
@@ -14,19 +86,24 @@
       <li><a>プレイヤー２</a></li>
     </ul>
   </nav>
+
+  <h1 id="PassageArea">(カウントダウン)</h1>
+
   <div class="main_container">
     <ul class="player_screen">
       <li>
-        <div><img class="thumbnail" src="res/orochi.png" alt="画像の表示に失敗したよ！"></div>
+        <div><img class="thumbnail" src="res/bg.png" alt="ここに背景画像を表示"></div>
+        <div><img class="center_player_image" src="res/CenterGatherer.png" alt="プレイヤー画像"></div>
+
       </li>
       <li>
-        <div><img class="thumbnail" src="res/biologic.png" alt="画像の表示に失敗したよ！"></div>
+        <div><img class="thumbnail" src="res/bg.png" alt="ここに背景画像を表示"></div>
       </li>
     </ul>
   </div>
 
   <div id="charselect">
-    <h1>キャラクターを選んでください</h1>
+    <h2>キャラクターを選んでください</h2>
     <form id="charselect-list">
       <div><label><input type="radio" name="mychar" value="1">汁なし担々麺</label></div>
       <div><label><input type="radio" name="mychar" value="2">トムヤムラーメン</label></div>
@@ -117,6 +194,24 @@ function createNewChar(token, type, zindex=999){
   chararea.insertAdjacentHTML("beforeend", html);
   document.querySelector(`#${id}`).style.zIndex = zindex;
 }
+
+/**
+* プレイヤーを新規に登場
+*
+* @param {string}  token  プレイヤー識別用のToken
+* @param {integer} type   キャラクター画像(1〜4)
+* @param {integer} zindex レイヤー深度
+* @return {void}
+*/
+function createNewPlayer(token, type, zindex=999){
+  const chararea = document.querySelector("#chararea");
+  const id   = `char-${token}`;
+  const html = `<img src="/res/CenterGatherer.png" class="char" id="${id}">`;
+
+  chararea.insertAdjacentHTML("beforeend", html);
+  document.querySelector(`#${id}`).style.zIndex = zindex;
+}
+
 
 /**
 * キャラクターを削除

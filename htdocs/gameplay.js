@@ -17,6 +17,9 @@ const io   = require("socket.io")(http);
 app.get("/css/:file", (req, res)=>{
   res.sendFile(__dirname + "/css/" + req.params.file);
 });
+app.get("/res/:file", (req, res)=>{
+  res.sendFile(__dirname + "/res/" + req.params.file);
+});
 
 app.get("/", (req, res)=>{
   res.sendFile(__dirname + "/gameplay.html");
@@ -107,6 +110,18 @@ io.on("connection", (socket)=>{
 function getInitPos(max){
   return(
     Math.floor( Math.random() * max )
+  );
+}
+
+/**
+ * アイテムの初期座標を決定する (x, y共通)
+ *
+ * @param {integer} max 最大値
+ * @return {integer}
+ */
+function getInitItemPos(){
+  return(
+    Math.floor( Math.random() * 2 ) * 320
   );
 }
 

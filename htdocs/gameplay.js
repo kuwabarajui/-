@@ -24,6 +24,11 @@ app.get("/res/:file", (req, res)=>{
 app.get("/", (req, res)=>{
   res.sendFile(__dirname + "/gameplay.html");
 });
+
+app.get("/result.html", (req, res)=>{
+  res.sendFile(__dirname + "/result.html");
+});
+
 app.get("/image/:file", (req, res)=>{
   res.sendFile(__dirname + "/image/" + req.params.file);
 });

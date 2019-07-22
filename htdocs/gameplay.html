@@ -25,7 +25,6 @@
 
   <h1 id="PassageArea">(カウントダウン)</h1>
 
-
   <div id="game_play">
     <ul class="player_screen">
       <li id="player1">
@@ -37,11 +36,6 @@
         <div><img class="thumbnail" src="res/bg.png" alt="ここに背景画像を表示"></div>
       </li>
       <li id="player2">
-        <div id="wait_login2">
-          <form id="charselect-list">
-            <div><button type="button" id="btn-login2">ログイン</button></div>
-          </form>
-        </div>
         <div><img class="thumbnail" src="res/bg.png" alt="ここに背景画像を表示"></div>
       </li>
     </ul>
@@ -97,7 +91,7 @@
     });
   }
 
-  var ElapseTime = 999;   //経過時間(秒)
+  var ElapseTime = 5;   //経過時間(秒)
   var GetCount = 0;    //キーを押した回数
   var StartChecker = 0;
 
@@ -108,27 +102,18 @@
     document.getElementById("PassageArea").innerHTML = msg;
     //0秒でリセット
     if (ElapseTime == 0) {
+      window.location.href = 'result.html';
       StartChecker++;
       gameStop();
     }
     ElapseTime--;   //カウントダウン
 
-    // const socket = io();
-    // const token  = getToken();
-    // socket.on('logged-in', (data)=>{    // data = { "token1":{pos{...}, type:1}, "token2":{pos{...}, type:4}}
-    //   for (const key in data) {
-    //     createNewStar();  // キャラを出現
-    //     moveStar(key, data[key].pos);                           // 初期位置に移動
-    //   }
-    // });
-    // // キャラクターを動かす
-    // socket.on('movechar', (data)=>{   // data = {token:"xxxxx", key:115, pos:{x:123,y:456}}
-    // moveStar(data.token, data.pos);
-    // });
+    createNewStar();
+
   }
   //繰り返し処理の開始
   function gameStart() {
-    ElapseTime = 999;   //カウンタのリセット
+    ElapseTime = 5;   //カウンタのリセット
     PassageID = setInterval('gameUpdate()',1000);   //タイマーをセット(1000ms間隔)
     document.getElementById("startcount").disabled = true;   //開始ボタンの無効化
   }
@@ -225,13 +210,11 @@
   * @param {integer} zindex レイヤー深度
   * @return {void}
   */
-  function createNewStar(token, type, zindex=999){
-    const chararea = document.querySelector("#game_play");
-    const id   = `char-${token}`;
+  function createNewStar(zindex=999){
+    const chararea = document.querySelector("#player1");
     const html = `<img src="/res/Star.png" class="star">`;
 
     chararea.insertAdjacentHTML("beforeend", html);
-    document.querySelector(`#${id}`).style.zIndex = zindex;
   }
 
   /**

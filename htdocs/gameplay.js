@@ -51,8 +51,10 @@ io.on("connection", (socket)=>{
   socket.on("login", (data)=>{
     // 初期座標を決定
     const pos = {
-      x: getInitPos(MAX_WIDTH),
-      y: getInitPos(MAX_HEIGHT)
+      // x: getInitPos(MAX_WIDTH),
+      // y: getInitPos(MAX_HEIGHT)
+      x: 210,
+      y: 135
     };
 
     // マスターに追加
@@ -88,6 +90,21 @@ io.on("connection", (socket)=>{
     // 全ユーザーへ送信
     io.emit("movechar", data);
     console.log("[movechar]", data);
+  });
+
+  //----------------------------
+  // 星の動きを同期
+  //----------------------------
+  socket.on("movestar", (data)=>{
+    // サーバ内で座標を計算
+    moveStar(data.token, data.key);
+
+    // 計算後の座標をセット
+    data.pos = CHAR_LIST[data.token].pos;
+
+    // 全ユーザーへ送信
+    io.emit("movestar", data);
+    console.log("[movestar]", data);
   });
 
   //----------------------------
@@ -132,36 +149,60 @@ function getInitItemPos(){
  * @param {integer} keycd  押下されたキーボード
  * @param {integer} step   1回の移動量
  */
-function moveChar(token, keycd, step=50){
+function moveChar(token, keycd, step=210){
   const pos = CHAR_LIST[token].pos;    // 現在の座標を取得
   let x, y;
 
   // キャラを移動させる
   switch(keycd){
-    case 119:  //W ↑
-      x = pos.x;
-      y = pos.y - step;
-      break;
+    // case 119:  //W ↑
+    //   x = pos.x;
+    //   y = pos.y - step;
+    //   break;
     case 97:   //A ←
-      x = pos.x - step;
+      // x = pos.x - step;
+      if(pos.x !== 0){
+        x = pos.x - step;
+      }
+      else{
+        x = pos.x;
+      }
       y = pos.y;
       break;
-    case 115:  //S ↓
-      x = pos.x;
-      y = pos.y + step;
-      break;
+    // case 115:  //S ↓
+    //   x = pos.x;
+    //   y = pos.y + step;
+    //   break;
     case 100:  //D →
-      x = pos.x + step;
+      // x = pos.x + step;
+      if(pos.x !== 420){
+        x = pos.x + step;
+      }
+      else{
+        x = pos.x;
+      }
       y = pos.y;
       break;
     default:
       console.log(keycd);
+      x = pos.x;
+      y = pos.y;
       break;
     }
 
     // マスター更新
     CHAR_LIST[token].pos.x = x;
     CHAR_LIST[token].pos.y = y;
+}
+
+function moveStar(token, keycd, step=30){
+  const pos = CHAR_LIST[token].pos;    // 現在の座標を取得
+  let x, y;
+  y = pos.y - step;
+  x = pos.x;
+  // マスター更新
+  CHAR_LIST[token].pos.x = x;
+  CHAR_LIST[token].pos.y = y;
 }
 
 /**

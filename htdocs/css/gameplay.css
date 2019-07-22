@@ -30,7 +30,7 @@ nav li a{
   font-size: 15px;
   color: #34589e;
 }
-nav li a:hover{
+.may_name{
   background: #34589e;
   color: #ffffff
 }
@@ -59,7 +59,7 @@ h1{
   margin: auto;
   border: 3px solid #191970;
   width: 50%;
-  height: 570px;
+  height: 510px;
   border-radius: 10px;
   background-color: #87cefa;
 }
@@ -70,5 +70,15 @@ h1{
 
 .center_player_image{
   width: 30%;
+  height: 160px;
+}
+
+.thumbnail{
+  width: 30%;
+  height: 200px;
+}
+
+.char{
+  width: 33%;
   height: 160px;
 }
